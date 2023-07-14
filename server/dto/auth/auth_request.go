@@ -1,10 +1,13 @@
 package authdto
 
 type CreateAuthRequest struct {
-	Fullname string `json:"fullname" form:"fullname" validate:"required"`
-	Username string `json:"username" form:"username" validate:"required"`
-	Email    string `json:"email" form:"email" validate:"required"`
-	Password string `json:"password" form:"password" validate:"required"`
+	Fullname     string `json:"fullname" form:"fullname" validate:"required"`
+	Username     string `json:"username" form:"username" validate:"required"`
+	Email        string `json:"email" form:"email" validate:"required"`
+	Password     string `json:"password" form:"password" validate:"required"`
+	JenisKelamin string `json:"jenis_kelamin" form:"jenis_kelamin" validate:"required"`
+	Telepon      string `json:"telepon" form:"telepon" validate:"required"`
+	Alamat       string `json:"alamat" form:"alamat" validate:"required"`
 }
 
 type UpdateAuthRequest struct {
@@ -21,6 +24,6 @@ type AuthRequest struct {
 }
 
 type LoginRequest struct {
-	Email    string `json:"email" validate:"required"`
+	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }

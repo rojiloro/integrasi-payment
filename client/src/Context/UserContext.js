@@ -4,29 +4,36 @@ export const UserContext = createContext();
 
 const initialState = {
   isLogin: false,
-  user: "",
+  status: false,
+  user: {},
 };
 
 const reducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case "LOGIN_SUCCESS":
     case "ADMIN_LOGIN_SUCCESS":
+      localStorage.setItem("token", payload.token);
       return {
         isLogin: true,
-        status: true,
         user: payload,
+        status: true,
       };
     case "USER_LOGIN_SUCCESS":
+      localStorage.setItem("token", payload.token);
       return {
         isLogin: true,
-        status: false,
         user: payload,
+        status: true,
       };
+    case "AUTH_ERROR":
     case "LOGOUT":
+      localStorage.removeItem("token");
       return {
         isLogin: false,
         user: "",
+        status: false,
       };
     default:
       throw new Error();

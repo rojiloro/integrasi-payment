@@ -317,3 +317,18 @@
   margin-top: -1rem;
   margin-left: 2rem;
 }
+
+.tunjukan {
+  display: flex;
+  width: 11.25rem;
+  height: 3.1875rem;
+  flex-direction: column;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Avenir;
+  font-size: 0.6125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 0.5rem;
+}

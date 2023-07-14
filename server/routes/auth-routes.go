@@ -2,6 +2,7 @@ package routes
 
 import (
 	"LandTicket-Backend/handlers"
+	"LandTicket-Backend/pkg/middleware"
 	"LandTicket-Backend/pkg/mysql"
 	"LandTicket-Backend/repositories"
 
@@ -12,6 +13,7 @@ func AuthRoutes(e *echo.Group) {
 	AuthRepository := repositories.RepositoryAuth(mysql.DB)
 	h := handlers.HandlerAuth(AuthRepository)
 
-	e.POST("/users", h.CreateUser)
+	e.POST("/register", h.CreateUser)
 	e.POST("/login", h.Login)
+	e.GET("/check/auth", middleware.Auth(h.CheckAuth))
 }

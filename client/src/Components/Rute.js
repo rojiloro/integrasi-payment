@@ -6,8 +6,8 @@ import { UserContext } from "../Context/UserContext";
 import { useState, useContext } from "react";
 
 import cssModules from "../css/Rute.module.css";
-import FormLogin from "./FormLogin";
-import FormRegister from "./FormRegister";
+import FormLogin from "./Auth/FormLogin";
+import FormRegister from "./Auth/FormRegister";
 
 function Rute(props) {
   const [show, setShow] = useState(false);

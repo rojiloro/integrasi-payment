@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 // import from app
 import App from "./App";
@@ -9,8 +8,10 @@ import App from "./App";
 import { UserContextProvider } from "./Context/UserContext";
 
 import { BrowserRouter as Router } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const client = new QueryClient();
 root.render(
   <React.StrictMode>
     <UserContextProvider>

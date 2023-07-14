@@ -7,8 +7,8 @@ import { useState, useContext } from "react";
 
 import cssModules from "../css/Navbar.module.css";
 
-import FormLogin from "./FormLogin";
-import FormRegister from "./FormRegister";
+import FormLogin from "./Auth/FormLogin";
+import FormRegister from "./Auth/FormRegister";
 import { UserContext } from "../Context/UserContext";
 
 import { Button } from "react-bootstrap";

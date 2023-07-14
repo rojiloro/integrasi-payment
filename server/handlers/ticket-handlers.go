@@ -75,6 +75,10 @@ func (h *handlersTicket) GetTicket(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: convertResponseTicket(ticket)})
 }
 
+// func (h *handlersTicket) GetMyTicket(c echo.Context) error {
+
+// }
+
 func (h *handlersTicket) FilterTicket(c echo.Context) error {
 	date := c.QueryParam("start_date")
 	startStationIDParam := c.QueryParam("start_station_id")

@@ -2,7 +2,6 @@ package repositories
 
 import (
 	"LandTicket-Backend/models"
-	"time"
 
 	"gorm.io/gorm"
 )
@@ -10,6 +9,7 @@ import (
 type AuthRepository interface {
 	CreateUser(user models.User) (models.User, error)
 	Login(email string) (models.User, error)
+	CheckAuth(ID int) (models.User, error)
 }
 
 func RepositoryAuth(db *gorm.DB) *repository {
@@ -17,14 +17,21 @@ func RepositoryAuth(db *gorm.DB) *repository {
 }
 
 func (r *repository) CreateUser(user models.User)(models.User, error){
-	err := r.db.Exec("INSERT INTO users(fullname, username, email, password, created_at, updated_at) VALUES (?,?,?,?,?,?)", user.Fullname, user.Username, user.Email, user.Password, time.Now(), time.Now()).Error
+	err := r.db.Create(&user).Error
 
 	return user, err
 }
 
-func (r *repository) Login(Email string)(models.User, error){
+func (r *repository) Login(Username string)(models.User, error){
 	var user models.User
-	err := r.db.First(&user, "email=?", Email).Error
+	err := r.db.First(&user, "username=?", Username).Error
+
+	return user, err
+}
+
+func (r *repository) CheckAuth(ID int) (models.User, error){
+	var user models.User
+	err := r.db.First(&user, ID).Error
 
 	return user, err
 }

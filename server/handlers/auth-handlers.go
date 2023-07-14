@@ -47,6 +47,10 @@ func (h *handlerAuth) CreateUser(c echo.Context) error{
 		Username: request.Username,
 		Email: request.Email,
 		Password: password,
+		JenisKelamin: request.JenisKelamin,
+		Telepon: request.Telepon,
+		Alamat: request.Alamat,
+		Role: "user",
 	}
 
 	data, err := h.AuthRepository.CreateUser(user)
@@ -55,7 +59,7 @@ func (h *handlerAuth) CreateUser(c echo.Context) error{
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: convertResponse(data) })
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: data })
 
 }
 
@@ -66,19 +70,19 @@ func (h *handlerAuth) Login(c echo.Context) error {
 	}
 
 	user := models.User{
-		Email: request.Email,
+		Username: request.Username,
 		Password: request.Password,
 	}
 
 	// check email
-	user, err := h.AuthRepository.Login(user.Email)
+	user, err := h.AuthRepository.Login(user.Username)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
 	// check password
 	isValid := bcrypt.CheckPasswordHash(request.Password, user.Password)
 	if !isValid {
-		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: "wrong email or password"})
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: "wrong username or password"})
 	}
 
 	// generate token
@@ -96,8 +100,18 @@ func (h *handlerAuth) Login(c echo.Context) error {
 		Username: user.Username,
 		Email: user.Email,
 		Password: user.Password,
+		Role: user.Role,
 		Token: token,
 	}
 
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: loginResponse})
+}
+
+func (h *handlerAuth) CheckAuth(c echo.Context) error {
+	userLogin := c.Get("userLogin")
+	userId := userLogin.(jwt.MapClaims)["id"].(float64)
+
+	user, _ := h.AuthRepository.CheckAuth(int(userId))
+
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: user})
 }

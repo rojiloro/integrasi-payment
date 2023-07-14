@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "react-bootstrap/Image";
+import ModalApproved from "./modalaproved";
 
 import { Container, Row, Col, Button } from "react-bootstrap";
 import cssModules from "../css/Cetak.module.css";
-import { Link } from "react-router-dom";
 
-function TiketApproved() {
+function TiketApproved(props) {
+  const [showApproved, setShowApproved] = useState(false);
   return (
     <>
       <div>
@@ -20,9 +21,9 @@ function TiketApproved() {
               <Col s={2}>
                 <p className={cssModules.text1}>Argo wilis</p>
                 <p className={cssModules.text2}>Eksekutif (H)</p>
-                <div className={cssModules.box}>
-                  <div className="alert alert-success d-inline-block">
-                    <p className={cssModules.pending}>Approved</p>
+                <div>
+                  <div className="d-inline-block mx-5" style={{ lineHeight: "0.2" }}>
+                    <p style={{ color: "green" }}>Approved</p>
                   </div>
                 </div>
                 <p className={cssModules.heading}>No. Tanda Pengenal</p>
@@ -84,13 +85,14 @@ function TiketApproved() {
                 </div>
               </Col>
               <Col s={2}>
-                <Link to="/invoice">
-                  <Button className={cssModules.btn}>Bayar Sekarang</Button>
-                </Link>
+                <Button className={cssModules.btn} onClick={() => setShowApproved(true)}>
+                  Bayar Sekarang
+                </Button>
               </Col>
             </Row>
           </div>
         </Container>
+        <ModalApproved show={showApproved} showModal={setShowApproved} />
       </div>
     </>
   );
