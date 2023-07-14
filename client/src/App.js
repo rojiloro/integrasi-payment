@@ -20,7 +20,7 @@ function App() {
 
   const checkUser = async () => {
     try {
-      const response = await API.get("/check-auth");
+      const response = await API.get("/check/auth");
       console.log("Check user success : ", response);
 
       let payload = response.data.data;
@@ -29,8 +29,9 @@ function App() {
 
       dispatch({
         type: "USER_SUCCESS",
-        payload,
+        user: payload,
       });
+
       setIsLoading(false);
     } catch (error) {
       console.log("Check user failed : ", error);
@@ -58,7 +59,7 @@ function App() {
     }
   }, [isLoading]);
   return (
-    <>
+    <div className="App">
       <Navigasi />
       {isLoading ? null : (
         <Routes>
@@ -71,7 +72,7 @@ function App() {
           <Route path="/tiketApproved" element={<Approved />} />
         </Routes>
       )}
-    </>
+    </div>
   );
 }
 

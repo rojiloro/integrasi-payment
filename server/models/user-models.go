@@ -21,6 +21,20 @@ type UserResponse struct{
 	Username string 		`json:"username" form:"username"`
 }
 
+type UserTicketResponse struct{
+	Username string 		`json:"username" form:"username"`
+	Email string `json:"email" form:"email"`
+	JenisKelamin string `json:"jenis_kelamin" form:"jenis_kelamin"`
+	Telepon string `json:"telepon" form:"telepon"`
+	Alamat string `json:"alamat" form:"alamat"`
+}
+
+
+
 func (UserResponse) TableName() string {
+	return "users"
+}
+
+func (UserTicketResponse) TableName() string {
 	return "users"
 }

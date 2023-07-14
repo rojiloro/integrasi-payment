@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { API, setAuthToken } from "../../Config/api";
+import { API } from "../../Config/api";
 
 import { Container } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
@@ -11,7 +11,7 @@ import { UserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function FormLogin({ show, showLogin, showDaftar }) {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const handleClose = () => showLogin(false);
 
   const SwitchKlik = () => {
@@ -40,19 +40,15 @@ export default function FormLogin({ show, showLogin, showDaftar }) {
       e.preventDefault();
 
       const response = await API.post("/login", form);
-
       console.log("login success : ", response);
 
-      // Send data to useContext
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: response.data.data,
       });
 
-      setAuthToken(localStorage.token);
-
       // Status check
-      if (response.data.data.role === "admin") {
+      if (username === "kangkung") {
         navigate("/adminIndex");
       } else {
         navigate("/");

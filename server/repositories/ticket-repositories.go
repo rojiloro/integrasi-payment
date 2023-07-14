@@ -10,6 +10,7 @@ type TicketRepository interface {
 	CreateTicket(ticket models.Ticket)(models.Ticket, error)
 	FindTicket()([]models.Ticket, error)
 	GetTicket(ID int) (models.Ticket, error)
+	// GetMyTicket(ID int) (models.Ticket, error)
 	FilterTicket(StartDate string, StartStationID, DestinationStationID int) ([]models.Ticket, error)
 }
   
@@ -36,6 +37,13 @@ func (r *repository) GetTicket(ID int)(models.Ticket, error){
 
 	return ticket, err
 }
+
+// func (r *repository) GetMyTicket(ID int) (models.Ticket, error) {
+// 	var tickets models.Ticket
+// 	err := r.db.Where("user_id=?", ID).Preload("StartStation").Preload("DestinationStation").Preload("User").Find(&tickets).Error
+
+// 	return tickets, err
+// }
 
 func (r *repository) FilterTicket(StartDate string, StartStationID, DestinationStationID int) ([]models.Ticket, error) {
 	var tickets []models.Ticket
