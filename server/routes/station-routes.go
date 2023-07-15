@@ -15,5 +15,5 @@ func StationRoutes(e *echo.Group){
 	h := handlers.HandlerStation(StationRepository)
 
 	e.POST("/station", middleware.Auth(h.CreateStation) )
-	e.GET("/station", middleware.Auth(h.FindStation) )
+	e.GET("/stations", h.FindStation )
 }

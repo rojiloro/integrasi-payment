@@ -25,6 +25,8 @@ function Navigasi(props) {
     });
   };
 
+  console.log(state);
+
   return (
     <>
       <Navbar className={cssModules.navbar}>
@@ -71,15 +73,9 @@ function Navigasi(props) {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item>
-                        <Link to="/cetak" style={{ display: "flex", textDecoration: "none" }}>
+                        <Link to="/addticket" style={{ display: "flex", textDecoration: "none" }}>
                           <Image src="../assets/img/ticket 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
-                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Tiket Saya</p>
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link to="/invoice" style={{ display: "flex", textDecoration: "none" }}>
-                          <Image src="../assets/img/bill 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
-                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Payment</p>
+                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Tambah Tiket</p>
                         </Link>
                       </Dropdown.Item>
                       <Dropdown.Item>

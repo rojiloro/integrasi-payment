@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
-import { API } from "../../Config/api";
-
+import { API, setAuthToken } from "../../Config/api";
+import jwt_decode from "jwt-decode";
 import { Container } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 
@@ -47,11 +47,19 @@ export default function FormLogin({ show, showLogin, showDaftar }) {
         payload: response.data.data,
       });
 
+      let token = response?.data?.data?.token;
+      let decodeToken = jwt_decode(token);
+      
+      console.log(decodeToken);
+
+      setAuthToken(localStorage.token);
       // Status check
-      if (username === "kangkung") {
-        navigate("/adminIndex");
+      if (decodeToken?.role === "admin") {
+        navigate("/adminindex");
+        console.log("berhasil ke admin");
       } else {
         navigate("/");
+        console.log("ini gagal");
       }
       console.log("login success : ", response);
     } catch (error) {

@@ -8,4 +8,16 @@ const PrivateRoute = () => {
     return state.isLogin ? <Outlet/> : <Navigate to="/"/>
 }
 
+export const PrivateRouteUser = () => {
+    const [state, dispatch] = useContext(UserContext);
+
+    return state.isLogin ? <Outlet/> : <Navigate to="/"/>
+}
+
+export const PrivateRouteAdmin = () => {
+    const [state, dispatch] = useContext(UserContext);
+
+    return state.isLogin ? <Outlet/> : <Navigate to="/"/>
+}
+
 export default PrivateRoute;

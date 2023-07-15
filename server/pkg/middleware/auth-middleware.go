@@ -42,7 +42,6 @@ package middleware
 import (
 	dto "LandTicket-Backend/dto/result"
 	jwtToken "LandTicket-Backend/pkg/jwt"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -60,7 +59,7 @@ type Result struct {
 func Auth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		token := c.Request().Header.Get("Authorization")
-		fmt.Println(token)
+		
 
 		if token == "" {
 			return c.JSON(http.StatusUnauthorized, dto.ErrorResult{Code: http.StatusBadRequest, Message: "unauthorized"})

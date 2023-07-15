@@ -22,29 +22,31 @@ func HandlerTicket(TicketRepositories repositories.TicketRepository) *handlersTi
 }
 
 func (h *handlersTicket) CreateTicket(c echo.Context) error {
-	request := new(ticketdto.CreateTicketRequest)
-	if err:=c.Bind(request); err!=nil {
-		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	startStationID, _ := strconv.Atoi(c.FormValue("start_station_id"))
+	destinationStationID, _ := strconv.Atoi(c.FormValue("destination_station_id"))
+	price, _ := strconv.Atoi(c.FormValue("price"))
+	qty, _ := strconv.Atoi(c.FormValue("qty"))
+	
+	
+	ticket := models.Ticket{
+		NameTrain: c.FormValue("name_train"),
+		TypeTrain: c.FormValue("type_train"),
+		StartDate: c.FormValue("start_date"),
+		StartStationID: startStationID,
+		StartTime: c.FormValue("start_time"),
+		DestinationStationID: destinationStationID,
+		ArrivalTime: c.FormValue("arrival_time"),
+		Price: price,
+		Qty: qty,
 	}
-
+	
 	validation := validator.New()
-	err := validation.Struct(request)
+	err := validation.Struct(ticket)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	ticket := models.Ticket{
-		NameTrain: request.NameTrain,
-		TypeTrain: request.TypeTrain,
-		StartDate: request.StartDate,
-		StartStationID: request.StartStationID,
-		StartTime: request.StartTime,
-		DestinationStationID: request.DestinationStationID,
-		ArrivalTime: request.ArrivalTime,
-		Price: request.Price,
-		Qty: request.Qty,
-	}
 
 	data, err := h.TicketRepository.CreateTicket(ticket)
 

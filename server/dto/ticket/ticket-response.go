@@ -11,5 +11,4 @@ type TicketResponse struct {
 	ArrivalTime          string `json:"arrival_time"`
 	Price                int    `json:"price"`
 	Qty                  int    `json:"qty"`
-	UserID               int    `json:"user_id"`
 }

@@ -63,7 +63,7 @@ export default function FormRegister({ show, showDaftar }) {
               <input type="email" onChange={handleChange} name="email" value={email} placeholder="Email" className={cssModules.Input} />
               <input type="password" onChange={handleChange} name="password" value={password} placeholder="Password" className={cssModules.Input} />
               <select value={jenis_kelamin} className={cssModules.Input} onChange={handleChange} name="jenis_kelamin">
-                <option selected="selected" disabled>
+                <option selected disabled>
                   Jenis Kelamin{" "}
                 </option>
                 <option value="lakilaki">Laki-laki</option>

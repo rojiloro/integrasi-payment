@@ -14,4 +14,5 @@ type UserResponse struct {
 type LoginResponse struct {
 	Username string `gorm:"type: varchar(255)" json:"username"`
 	Token    string `gorm:"type: varchar(255)" json:"token"`
+	Role     string `gorm:"type: varchar(255)" json:"role"`
 }
