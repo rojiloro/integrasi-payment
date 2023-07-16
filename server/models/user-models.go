@@ -12,7 +12,7 @@ type User struct {
 	JenisKelamin 	string 	`json:"jenis_kelamin" gorm:"type: varchar(255)"`
 	Telepon 		string 	`json:"telepon" gorm:"type : varchar(255)"`
 	Alamat 			string 	`json:"alamat" gorm:"type : varchar(255)"`
-	Role 			string 	`json:"role" gorm:"type: varchar(255)"`
+	Role 			string 	`json:"-" gorm:"type: varchar(255)"`
 	CreatedAt 		time.Time		`json:"-"`
 	UpdatedAt 		time.Time		`json:"-"`
 }
@@ -22,11 +22,10 @@ type UserResponse struct{
 }
 
 type UserTicketResponse struct{
+	ID int `json:"-"`
 	Username string 		`json:"username" form:"username"`
 	Email string `json:"email" form:"email"`
-	JenisKelamin string `json:"jenis_kelamin" form:"jenis_kelamin"`
 	Telepon string `json:"telepon" form:"telepon"`
-	Alamat string `json:"alamat" form:"alamat"`
 }
 
 

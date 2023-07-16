@@ -12,7 +12,7 @@ function Detailinvoice() {
     <>
       <div>
         <Container>
-          <p className="fs-3 fw-400 mt-5">Invoice</p>
+          <p className="fs-3 fw-400" style={{marginTop : "5rem"}}>Invoice</p>
           <div className={cssModules.content1}>
             <Row>
               <Col xs={2}>

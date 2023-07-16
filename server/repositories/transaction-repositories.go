@@ -17,7 +17,7 @@ func RepositoryTransaction(db *gorm.DB) *repository{
 }
 
 func (r *repository) CreateTransaction(transaction models.Transaction)(models.Transaction, error){
-	err := r.db.Preload("user").Preload("ticket").Create(&transaction).Error
+	err := r.db.Create(&transaction).Error
 
 	return transaction, err
 }

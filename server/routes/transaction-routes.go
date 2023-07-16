@@ -13,7 +13,7 @@ func TransactionRoutes(e *echo.Group){
 	t := repositories.RepositoryTransaction(mysql.DB)
 	h := handlers.HandlerTransaction(t)
 
-	e.POST("/transaction", middleware.UploadFile(h.CreateTransaction))
+	e.POST("/transaction", middleware.Auth(h.CreateTransaction))
 	e.GET("/transaction", h.FindTransaction)
 	e.GET("/transaction/:id", h.GetTransaction)
 }

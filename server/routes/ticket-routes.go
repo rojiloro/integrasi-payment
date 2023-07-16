@@ -17,6 +17,6 @@ func TicketRoutes(e *echo.Group){
 	e.GET("/tickets", h.FindTicket)
 	e.POST("/ticket", h.CreateTicket)
 	e.GET("/ticket/:id", h.GetTicket)
-	// e.GET("/ticket/:id", middleware.Auth(h.GetMyTicket))
+	e.GET("/my-ticket", middleware.Auth(h.GetMyTicket))
 	e.GET("/ticket", middleware.Auth(h.FilterTicket) )
 }

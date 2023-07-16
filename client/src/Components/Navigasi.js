@@ -28,8 +28,8 @@ function Navigasi(props) {
   console.log(state);
 
   return (
-    <>
-      <Navbar className={cssModules.navbar}>
+    <div>
+      <Navbar fixed="top" className={cssModules.navbar}>
         <Container>
           <Navbar.Brand>
             <Link to="/">
@@ -38,9 +38,8 @@ function Navigasi(props) {
             </Link>
           </Navbar.Brand>
           <Nav>
-            {/* kondisi login admin dan user */}
-            <>
-              {state.status ? (
+            {state.isLogin === true ? (
+              state.user.role === "admin" ? (
                 <>
                   <p className={cssModules.user}>{state.user.username}</p>
                   <Dropdown>
@@ -51,30 +50,6 @@ function Navigasi(props) {
                       <Dropdown.Item>
                         <Link to="/addticket" style={{ display: "flex", textDecoration: "none" }}>
                           <Image src="../assets/img/more 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
-                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Tiket Saya</p>
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <hr></hr>
-                        <Link to="/" onClick={logout} style={{ display: "flex", textDecoration: "none" }}>
-                          <Image src="../assets/img/logout 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
-                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Log Out</p>
-                        </Link>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </>
-              ) : state.isLogin ? (
-                <>
-                  <p className={cssModules.user}>{state.user.username}</p>
-                  <Dropdown>
-                    <Dropdown.Toggle style={{ background: "none", border: "none" }}>
-                      <Image src="../assets/img/boy 1.png" className="border border-4 rounded-circle" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <Link to="/addticket" style={{ display: "flex", textDecoration: "none" }}>
-                          <Image src="../assets/img/ticket 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
                           <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Tambah Tiket</p>
                         </Link>
                       </Dropdown.Item>
@@ -90,25 +65,55 @@ function Navigasi(props) {
                 </>
               ) : (
                 <>
-                  <Nav.Link>
-                    <Button className={cssModules.btnLogin} onClick={() => setShowLogin(true)}>
-                      Login
-                    </Button>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Button className={cssModules.btnRegister} onClick={() => setShowDaftar(true)}>
-                      Register
-                    </Button>
-                  </Nav.Link>
+                  <p className={cssModules.user}>{state.user.username}</p>
+                  <Dropdown>
+                    <Dropdown.Toggle style={{ background: "none", border: "none" }}>
+                      <Image src="../assets/img/boy 1.png" className="border border-4 rounded-circle" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Link to="/cetak" style={{ display: "flex", textDecoration: "none" }}>
+                          <Image src="../assets/img/ticket 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
+                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Tiket saya</p>
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link to="/invoice" style={{ display: "flex", textDecoration: "none" }}>
+                          <Image src="../assets/img/bill 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
+                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Payment</p>
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <hr></hr>
+                        <Link to="/" onClick={logout} style={{ display: "flex", textDecoration: "none" }}>
+                          <Image src="../assets/img/logout 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
+                          <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Log Out</p>
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </>
-              )}
-            </>
+              )
+            ) : (
+              <>
+                <Nav.Link>
+                  <Button className={cssModules.btnLogin} onClick={() => setShowLogin(true)}>
+                    Login
+                  </Button>
+                </Nav.Link>
+                <Nav.Link>
+                  <Button className={cssModules.btnRegister} onClick={() => setShowDaftar(true)}>
+                    Register
+                  </Button>
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Container>
       </Navbar>
       <FormLogin show={ShowLogin} showLogin={setShowLogin} showDaftar={setShowDaftar} />
       <FormRegister show={ShowDaftar} showDaftar={setShowDaftar} />
-    </>
+    </div>
   );
 }
 

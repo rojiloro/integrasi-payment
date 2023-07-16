@@ -33,12 +33,7 @@ function AdminIndex() {
             <Col s={2}>Action</Col>
           </Row>
           <hr></hr>
-          <TableAdmin No="1" Users="oji" Tiket="Jakarta-surabaya" BuktiTransfer="bri.jpg" Status="pending" />
-          <TableAdmin No="2" Users="Bastian" Tiket="Jakarta-surabaya" BuktiTransfer="bri.jpg" Status="pending" />
-          <TableAdmin No="3" Users="Bastian" Tiket="Jakarta-surabaya" BuktiTransfer="bri.jpg" Status="pending" />
-          <TableAdmin No="4" Users="Bastian" Tiket="Jakarta-surabaya" BuktiTransfer="bri.jpg" Status="pending" />
-          <TableAdmin No="5" Users="Bastian" Tiket="Jakarta-surabaya" BuktiTransfer="bri.jpg" Status="pending" />
-          <TableAdmin No="6" Users="Bastian" Tiket="Jakarta-surabaya" BuktiTransfer="bri.jpg" Status="pending" />
+          <TableAdmin />
         </div>
       </Container>
       <Footer />

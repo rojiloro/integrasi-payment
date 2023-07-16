@@ -10,6 +10,7 @@ import (
 	"strconv"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
 )
 
@@ -77,18 +78,18 @@ func (h *handlersTicket) GetTicket(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: convertResponseTicket(ticket)})
 }
 
-// func (h *handlersTicket) GetMyTicket(c echo.Context) error {
-// 		claims := c.Get("userLogin")
-// 		id := claims.(jwt.MapClaims)["id"].(float64)
-// 		userID := int(id)
+func (h *handlersTicket) GetMyTicket(c echo.Context) error {
+		claims := c.Get("userLogin")
+		id := claims.(jwt.MapClaims)["id"].(float64)
+		userID := int(id)
+
+		ticket, err := h.TicketRepository.GetMyTicket(userID)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
+		}
 	
-// 		ticket, err := h.TicketRepository.GetMyTicket(userID)
-// 		if err != nil {
-// 			return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
-// 		}
-	
-// 		return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: ticket})
-// 	}
+		return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: ticket})
+	}
 
 
 func (h *handlersTicket) FilterTicket(c echo.Context) error {

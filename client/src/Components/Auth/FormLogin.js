@@ -49,7 +49,7 @@ export default function FormLogin({ show, showLogin, showDaftar }) {
 
       let token = response?.data?.data?.token;
       let decodeToken = jwt_decode(token);
-      
+
       console.log(decodeToken);
 
       setAuthToken(localStorage.token);
@@ -64,6 +64,7 @@ export default function FormLogin({ show, showLogin, showDaftar }) {
       console.log("login success : ", response);
     } catch (error) {
       console.log("login failed : ", error);
+      alert("email or password wrong maybe");
     }
   });
   return (
