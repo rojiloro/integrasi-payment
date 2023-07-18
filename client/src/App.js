@@ -12,10 +12,6 @@ import PrivateRoute, { PrivateRouteUser } from "./PrivateRoute/PrivateRoute";
 import AddTicket from "./Pages/AddTicket";
 import Approved from "./Pages/approved";
 
-// if (localStorage.getItem("token")) {
-//   setAuthToken(localStorage.getItem("token"));
-// }
-
 function App() {
   let navigate = useNavigate();
 
@@ -74,7 +70,7 @@ function App() {
           <Route exact path="/" element={<PrivateRoute />} />
           <Route element={<PrivateRouteUser />}>
             <Route path="/cetak" element={<Cetak />} />
-            <Route path="/invoice" element={<Invoice />} />
+            <Route path="/invoice/:id" element={<Invoice />} />
             <Route path="/adminindex" element={<AdminIndex />} />
           </Route>
           <Route element={<PrivateRouteUser />}>

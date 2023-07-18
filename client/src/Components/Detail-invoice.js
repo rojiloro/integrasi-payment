@@ -2,17 +2,35 @@ import React from "react";
 import { Button, Container } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { Row, Col } from "react-bootstrap";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { API } from "../Config/api";
+import { useEffect } from "react";
 
 import cssModules from "../css/invoice.module.css";
 import { Link } from "react-router-dom";
 
 function Detailinvoice() {
+  let param = useParams();
+  let id = parseInt(param.id);
+
+  let navigate = useNavigate();
+
+  let { data: transaction } = useQuery("myTicketTransCache", async () => {
+    const response = await API.get(`/transaction/${id}`);
+    console.log(response.data.data);
+    return response.data.data;
+  });
+
+  // handle buy
+
   return (
     <>
       <div>
         <Container>
-          <p className="fs-3 fw-400" style={{marginTop : "5rem"}}>Invoice</p>
+          <p className="fs-3 fw-400" style={{ marginTop: "5rem" }}>
+            Invoice
+          </p>
           <div className={cssModules.content1}>
             <Row>
               <Col xs={2}>
@@ -44,8 +62,8 @@ function Detailinvoice() {
             <Row>
               <Col m={6}>
                 <div>
-                  <p className={cssModules.text3}>Argo Wilis</p>
-                  <p className={cssModules.text4}>Eksekutif</p>
+                  <p className={cssModules.text3}>{transaction?.ticket.name_train}</p>
+                  <p className={cssModules.text4}>{transaction?.ticket.type_train}</p>
                 </div>
                 <div style={{ marginLeft: "-1rem" }}>
                   <div className={cssModules.bulat}></div>
@@ -53,22 +71,22 @@ function Detailinvoice() {
                   <div className={cssModules.bulat2}></div>
                 </div>
                 <div className={cssModules.posisi1}>
-                  <p className={cssModules.text5}>05.00</p>
-                  <p className={cssModules.text6}>21 Febuari 2020</p>
+                  <p className={cssModules.text5}>{transaction?.ticket.start_time}</p>
+                  <p className={cssModules.text6}>{transaction?.ticket.star_date}</p>
                 </div>
                 <div className={cssModules.posisi1}>
-                  <p className={cssModules.text5}>10.05</p>
-                  <p className={cssModules.text6}>21 Febuari 2020</p>
+                  <p className={cssModules.text5}>{transaction?.ticket.arrival_time}</p>
+                  <p className={cssModules.text6}>{transaction?.ticket.star_date}</p>
                 </div>
               </Col>
               <Col m={6}>
                 <div className={cssModules.posisi2}>
                   <p className={cssModules.text5}>Jakarta</p>
-                  <p className={cssModules.text6}>Stasiun Gambir</p>
+                  <p className={cssModules.text6}>{transaction?.ticket.start_station.name}</p>
                 </div>
                 <div className={cssModules.posisi3}>
                   <p className={cssModules.text5}>Surabaya</p>
-                  <p className={cssModules.text6}>Stasiun Surabaya</p>
+                  <p className={cssModules.text6}>{transaction?.ticket.destination_station.name}</p>
                 </div>
               </Col>
             </Row>
@@ -106,13 +124,13 @@ function Detailinvoice() {
                   <p>31175033003970001</p>
                 </Col>
                 <Col m={3}>
-                  <p>Oji</p>
+                  <p>{transaction?.user.fullname}</p>
                 </Col>
                 <Col m={3}>
-                  <p>083896833112</p>
+                  <p>{transaction?.user.telepon}</p>
                 </Col>
                 <Col m={3}>
-                  <p>oji@gmail.com</p>
+                  <p>{transaction?.user.email}</p>
                 </Col>
               </Row>
             </div>
@@ -127,7 +145,7 @@ function Detailinvoice() {
             <Row>
               <Col m={6}>
                 <div className={cssModules.wrap2}>
-                  <p>Argo Wilis (Dewasa) x1</p>
+                  <p>{transaction?.ticket.name_train} (Dewasa) x1</p>
                 </div>
               </Col>
               <Col m={6}>

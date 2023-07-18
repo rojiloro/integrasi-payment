@@ -46,8 +46,10 @@ export default function FormRegister({ show, showDaftar }) {
         telepon: "",
         alamat: "",
       });
+      alert("selamat akunmu berhasil hehe");
     } catch (error) {
       console.log("Register failed : ", error);
+      alert("gagal daftar cok!");
     }
   });
 

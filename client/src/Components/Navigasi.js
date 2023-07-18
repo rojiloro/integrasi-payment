@@ -78,7 +78,7 @@ function Navigasi(props) {
                         </Link>
                       </Dropdown.Item>
                       <Dropdown.Item>
-                        <Link to="/invoice" style={{ display: "flex", textDecoration: "none" }}>
+                        <Link to="/invoice/" style={{ display: "flex", textDecoration: "none" }}>
                           <Image src="../assets/img/bill 1.png" style={{ width: "40px", height: "40px", marginTop: "0.6rem", cursor: "pointer" }} />
                           <p style={{ marginLeft: "1rem", marginTop: "1rem" }}>Payment</p>
                         </Link>

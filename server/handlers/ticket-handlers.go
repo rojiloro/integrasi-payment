@@ -27,27 +27,25 @@ func (h *handlersTicket) CreateTicket(c echo.Context) error {
 	destinationStationID, _ := strconv.Atoi(c.FormValue("destination_station_id"))
 	price, _ := strconv.Atoi(c.FormValue("price"))
 	qty, _ := strconv.Atoi(c.FormValue("qty"))
-	
-	
+
 	ticket := models.Ticket{
-		NameTrain: c.FormValue("name_train"),
-		TypeTrain: c.FormValue("type_train"),
-		StartDate: c.FormValue("start_date"),
-		StartStationID: startStationID,
-		StartTime: c.FormValue("start_time"),
+		NameTrain:            c.FormValue("name_train"),
+		TypeTrain:            c.FormValue("type_train"),
+		StartDate:            c.FormValue("start_date"),
+		StartStationID:       startStationID,
+		StartTime:            c.FormValue("start_time"),
 		DestinationStationID: destinationStationID,
-		ArrivalTime: c.FormValue("arrival_time"),
-		Price: price,
-		Qty: qty,
+		ArrivalTime:          c.FormValue("arrival_time"),
+		Price:                price,
+		Qty:                  qty,
 	}
-	
+
 	validation := validator.New()
 	err := validation.Struct(ticket)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
-
 
 	data, err := h.TicketRepository.CreateTicket(ticket)
 
@@ -70,7 +68,7 @@ func (h *handlersTicket) FindTicket(c echo.Context) error {
 func (h *handlersTicket) GetTicket(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	ticket, err := h.TicketRepository.GetTicket(id)
-	
+
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
@@ -79,25 +77,21 @@ func (h *handlersTicket) GetTicket(c echo.Context) error {
 }
 
 func (h *handlersTicket) GetMyTicket(c echo.Context) error {
-		claims := c.Get("userLogin")
-		id := claims.(jwt.MapClaims)["id"].(float64)
-		userID := int(id)
+	claims := c.Get("userLogin")
+	id := claims.(jwt.MapClaims)["id"].(float64)
+	userID := int(id)
 
-		ticket, err := h.TicketRepository.GetMyTicket(userID)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
-		}
-	
-		return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: ticket})
+	ticket, err := h.TicketRepository.GetMyTicket(userID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
 
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: ticket})
+}
 
 func (h *handlersTicket) FilterTicket(c echo.Context) error {
-	date := c.QueryParam("start_date")
 	startStationIDParam := c.QueryParam("start_station_id")
 	destinationStationIDParam := c.QueryParam("destination_station_id")
-
-	fmt.Println(date)
 
 	var startStationID int
 	if startStationIDParam != "" {
@@ -121,7 +115,7 @@ func (h *handlersTicket) FilterTicket(c echo.Context) error {
 
 	fmt.Println(destinationStationID)
 
-	ticket, err := h.TicketRepository.FilterTicket(date, startStationID, destinationStationID)
+	ticket, err := h.TicketRepository.FilterTicket(startStationID, destinationStationID)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
@@ -129,20 +123,17 @@ func (h *handlersTicket) FilterTicket(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: ticket})
 }
 
-
-
-
-func convertResponseTicket(t models.Ticket) ticketdto.TicketResponse{
+func convertResponseTicket(t models.Ticket) ticketdto.TicketResponse {
 	return ticketdto.TicketResponse{
-		ID: t.ID,
-		NameTrain: t.NameTrain,
-		TypeTrain: t.TypeTrain,
-		StartDate: t.StartDate,
-		StartStationID: t.StartStationID,
-		StartTime: t.StartTime,
+		ID:                   t.ID,
+		NameTrain:            t.NameTrain,
+		TypeTrain:            t.TypeTrain,
+		StartDate:            t.StartDate,
+		StartStationID:       t.StartStationID,
+		StartTime:            t.StartTime,
 		DestinationStationID: t.DestinationStationID,
-		ArrivalTime: t.ArrivalTime,
-		Price: t.Price,
-		Qty: t.Qty,
+		ArrivalTime:          t.ArrivalTime,
+		Price:                t.Price,
+		Qty:                  t.Qty,
 	}
 }
