@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { API } from "../Config/api";
 import { useQuery } from "react-query";
 import { useMutation } from "react-query";
@@ -12,7 +12,7 @@ import cssModules from "../css/Rute.module.css";
 import FormLogin from "./Auth/FormLogin";
 import FormRegister from "./Auth/FormRegister";
 
-function Rute() {
+function Rute({ startStation, destinationStation, search }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -21,8 +21,8 @@ function Rute() {
   const [showLogin, setShowLogin] = useState(false);
   const [showDaftar, setShowDaftar] = useState(false);
 
-  let { data: tickets } = useQuery("ticketCache", async () => {
-    const response = await API.get("/tickets");
+  let { data: tickets, refetch } = useQuery("ticketCache", async () => {
+    const response = search ? await API.get(`/filter-ticket?start_station_id=${startStation}&destination_station_id=${destinationStation}`) : await API.get("/tickets");
     console.log(response.data.data);
     return response.data.data;
   });
@@ -38,6 +38,10 @@ function Rute() {
       console.log("apakah ini : ", error);
     }
   };
+
+  useEffect(() => {
+    refetch();
+  }, [search]);
 
   return (
     <>

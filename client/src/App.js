@@ -11,6 +11,7 @@ import AdminIndex from "./Pages/AdminIndex";
 import PrivateRoute, { PrivateRouteUser } from "./PrivateRoute/PrivateRoute";
 import AddTicket from "./Pages/AddTicket";
 import Approved from "./Pages/approved";
+import Footer from "./Components/Footer";
 
 function App() {
   let navigate = useNavigate();
@@ -79,6 +80,7 @@ function App() {
           </Route>
         </Routes>
       )}
+      <Footer />
     </div>
   );
 }

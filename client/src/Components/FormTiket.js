@@ -2,12 +2,50 @@ import Button from "react-bootstrap/Button";
 import { Container, Row, Col } from "react-bootstrap";
 import cssModules from "../css/Tiket.module.css";
 import Image from "react-bootstrap/Image";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery } from "react-dom";
+import { API } from "../Config/api";
+
+import Rute from "./Rute";
 
 function FormTiket() {
+  const [stations, setStations] = useState([]);
+  const [form, setForm] = useState({
+    start_station_id: "",
+    destination_station_id: "",
+  });
+
+  const getStations = async () => {
+    try {
+      const response = await API.get("/stations");
+      setStations(response.data.data);
+      console.log("data filter si..", stations);
+    } catch (error) {
+      alert("cek console log yak");
+      console.log(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const [search, setSearch] = useState(false);
+  const handleClick = (e) => {
+    e.preventDefault();
+    form.start_station_id === "" && form.destination_station_id === "" ? setSearch(false) : setSearch(true);
+  };
+
+  useEffect(() => {
+    getStations();
+  }, []);
   return (
     <>
-      <div className={cssModules.homeTiketContainer}>
-        <Container>
+      <div>
+        <Container className={cssModules.homeTiketContainer}>
           <Row>
             <Col sm={4} className={cssModules.tiketKolom}>
               <div className={cssModules.tiketKotakOren}></div>
@@ -22,7 +60,14 @@ function FormTiket() {
                 <Col xl={5}>
                   <div className={cssModules.tiketGrup}>
                     <p className={cssModules.tiketPtext3}>Asal</p>
-                    <input className={cssModules.tiketInput} placeholder="Jakarta"></input>
+                    <select className={cssModules.tiketInput} name="start_station_id" value={form.start_station_id} onChange={handleChange}>
+                      <option hidden>Stasiun keberangkatan</option>
+                      {stations.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <p className={cssModules.tiketPtext3}>Tanggal Berangkat</p>
@@ -39,7 +84,14 @@ function FormTiket() {
                 <Col xl={5}>
                   <div className={cssModules.tiketGrup}>
                     <p className={cssModules.tiketPtext3}>Tujuan</p>
-                    <input className={cssModules.tiketInput} placeholder="Surabaya"></input>
+                    <select className={cssModules.tiketInput} name="destination_station_id" value={form.destination_station_id} onChange={handleChange}>
+                      <option hidden>Stasiun tujuan</option>
+                      {stations.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className={cssModules.tiketGrup2}>
                     <p className={cssModules.tiketPtext3}>Dewasa</p>
@@ -65,7 +117,9 @@ function FormTiket() {
                       </select>
                     </div>
                     <div>
-                      <Button className={cssModules.btnCari}>Cari Tiket</Button>
+                      <Button className={cssModules.btnCari} onClick={handleClick}>
+                        Cari Tiket
+                      </Button>
                     </div>
                   </div>
                 </Col>
@@ -73,6 +127,26 @@ function FormTiket() {
             </Col>
           </Row>
         </Container>
+        <Container>
+          <Row style={{ marginLeft: "1rem" }}>
+            <Col xs={2}>
+              <p>Nama Kereta</p>
+            </Col>
+            <Col xs={2}>
+              <p>Berangkat</p>
+            </Col>
+            <Col xs={2}>
+              <p>Tiba</p>
+            </Col>
+            <Col xs={2}>
+              <p>Durasi</p>
+            </Col>
+            <Col s={2}>
+              <p>Harga Per Orang</p>
+            </Col>
+          </Row>
+        </Container>
+        <Rute startStation={form.start_station_id} destinationStation={form.destination_station_id} search={search} />
       </div>
     </>
   );
