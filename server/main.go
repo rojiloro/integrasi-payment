@@ -15,7 +15,7 @@ func main() {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{echo.GET, echo.POST, echo.PATCH, echo.DELETE},
-		AllowHeaders: []string{"X-Requested-With","Content-type", "Authorization"},
+		AllowHeaders: []string{"X-Requested-With", "Content-type", "Authorization"},
 	}))
 
 	mysql.DatabaseInit()
@@ -25,5 +25,5 @@ func main() {
 
 	e.Static("/uploads", "./uploads")
 
-	e.Logger.Fatal(e.Start("localhost:5000"))
+	e.Logger.Fatal(e.Start(":5000"))
 }

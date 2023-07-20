@@ -1,8 +1,6 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import cssModules from "../css/Admin.module.css";
 import TableAdmin from "../Components/TableAdmin";
-import Footer from "../Components/Footer";
-import { Link } from "react-router-dom";
 
 function AdminIndex() {
   return (
@@ -36,7 +34,6 @@ function AdminIndex() {
           <TableAdmin />
         </div>
       </Container>
-      <Footer />
     </>
   );
 }
