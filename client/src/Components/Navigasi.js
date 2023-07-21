@@ -9,7 +9,7 @@ import cssModules from "../css/Navbar.module.css";
 
 import FormLogin from "./Auth/FormLogin";
 import FormRegister from "./Auth/FormRegister";
-import { UserContext } from "../Context/UserContext";
+import { UserContext } from "../context/UserContext";
 
 import { Button } from "react-bootstrap";
 

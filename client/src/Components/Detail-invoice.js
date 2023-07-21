@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import { Row, Col } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import { API } from "../Config/api";
+import { API } from "../config/api";
 import { useEffect } from "react";
 
 import cssModules from "../css/invoice.module.css";

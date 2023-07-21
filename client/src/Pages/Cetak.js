@@ -1,4 +1,4 @@
-import Tiket from "../Components/Tiket";
+import Tiket from "../components/Tiket";
 
 function Cetak() {
   return (

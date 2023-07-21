@@ -2,9 +2,9 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
-import { UserContext } from "../Context/UserContext";
+import { UserContext } from "../context/UserContext";
 import { useState, useContext, useEffect } from "react";
-import { API } from "../Config/api";
+import { API } from "../config/api";
 import { useQuery } from "react-query";
 import { useMutation } from "react-query";
 

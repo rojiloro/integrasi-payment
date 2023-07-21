@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import ModalTiketAdmin from "./Modal-tiket-admin";
 import ModalEditAdmin from "./Modal-edit-admin";
 
-import { API } from "../Config/api";
+import { API } from "../config/api";
 import { useQuery } from "react-query";
 
 function TableAdmin() {

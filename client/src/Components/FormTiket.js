@@ -4,7 +4,7 @@ import cssModules from "../css/Tiket.module.css";
 import Image from "react-bootstrap/Image";
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-dom";
-import { API } from "../Config/api";
+import { API } from "../config/api";
 
 import Rute from "./Rute";
 

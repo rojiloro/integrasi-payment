@@ -1,4 +1,4 @@
-import TiketApproved from "../Components/TiketApproved";
+import TiketApproved from "../components/TiketApproved";
 
 function Approved() {
   return (

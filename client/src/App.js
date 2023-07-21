@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { UserContext } from "./Context/UserContext";
-import { API, setAuthToken } from "./Config/api";
+import { UserContext } from "./context/UserContext";
+import { API, setAuthToken } from "./config/api";
 
-import Navigasi from "./Components/Navigasi";
-import Home from "./Pages/Home";
-import Cetak from "./Pages/Cetak";
-import Invoice from "./Pages/Invoice";
-import AdminIndex from "./Pages/AdminIndex";
+import Navigasi from "./components/Navigasi";
+import Home from "./pages/Home";
+import Cetak from "./pages/Cetak";
+import Invoice from "./pages/Invoice";
+import AdminIndex from "./pages/AdminIndex";
 import PrivateRoute, { PrivateRouteUser } from "./PrivateRoute/PrivateRoute";
-import AddTicket from "./Pages/AddTicket";
-import Approved from "./Pages/approved";
-import Footer from "./Components/Footer";
+import AddTicket from "./pages/AddTicket";
+import Approved from "./pages/approved";
+import Footer from "./components/Footer";
 
 function App() {
   let navigate = useNavigate();

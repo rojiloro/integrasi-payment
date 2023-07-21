@@ -5,7 +5,7 @@ import "./index.css";
 // import from app
 import App from "./App";
 
-import { UserContextProvider } from "./Context/UserContext";
+import { UserContextProvider } from "./context/UserContext";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";

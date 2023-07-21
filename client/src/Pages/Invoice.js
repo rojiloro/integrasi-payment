@@ -1,4 +1,4 @@
-import Detailinvoice from "../Components/Detail-invoice";
+import Detailinvoice from "../components/Detail-invoice";
 function Invoice() {
   return (
     <>

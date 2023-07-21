@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { API, setAuthToken } from "../../Config/api";
+import { API, setAuthToken } from "../../config/api";
 import jwt_decode from "jwt-decode";
 import { Container } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
@@ -7,7 +7,7 @@ import { Modal } from "react-bootstrap";
 import cssModules from "../../css/RegisterLogin.module.css";
 
 import { useContext, useState } from "react";
-import { UserContext } from "../../Context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function FormLogin({ show, showLogin, showDaftar }) {

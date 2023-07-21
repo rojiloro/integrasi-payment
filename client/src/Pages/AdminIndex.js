@@ -1,6 +1,6 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import cssModules from "../css/Admin.module.css";
-import TableAdmin from "../Components/TableAdmin";
+import TableAdmin from "../components/TableAdmin";
 
 function AdminIndex() {
   return (
