@@ -4,6 +4,7 @@ import (
 	"LandTicket-Backend/database"
 	"LandTicket-Backend/pkg/mysql"
 	"LandTicket-Backend/routes"
+	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -27,5 +28,7 @@ func main() {
 
 	e.Static("/uploads", "./uploads")
 
-	e.Logger.Fatal(e.Start(":5000"))
+	var PORT = os.Getenv("PORT")
+
+	e.Logger.Fatal(e.Start(":" + PORT))
 }
