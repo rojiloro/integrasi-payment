@@ -23,7 +23,51 @@ function Detailinvoice() {
   });
 
   // handle buy
+  const handleBuy = useMutation(async () => {
+    try {
+      const response = await API.get(`/getpayment/${id}`);
+      console.log("ini response yak", response);
 
+      const token = response.data.data.token;
+      console.log("ini token", token);
+
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          console.log(result);
+          navigate("/tiketApproved");
+        },
+        onPending: function (result) {
+          console.log(result);
+          navigate("/tiketApproved");
+        },
+        onError: function (result) {
+          console.log(result);
+          navigate("/tiketApproved");
+        },
+        onClose: function () {
+          alert("Close popup yak");
+        },
+      });
+    } catch (error) {
+      alert("cek console yagesyak..");
+      console.log(error);
+    }
+  });
+
+  useEffect(() => {
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
   return (
     <>
       <div>
@@ -167,7 +211,9 @@ function Detailinvoice() {
           </div>
           <div>
             <Link to="/tiketApproved">
-              <Button className={cssModules.btn}>Bayar Sekarang</Button>
+              <Button className={cssModules.btn} type="submit" onClick={() => handleBuy.mutate(id)}>
+                Bayar Sekarang
+              </Button>
             </Link>
           </div>
         </Container>

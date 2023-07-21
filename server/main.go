@@ -5,11 +5,13 @@ import (
 	"LandTicket-Backend/pkg/mysql"
 	"LandTicket-Backend/routes"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	godotenv.Load()
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{

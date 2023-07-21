@@ -4,11 +4,14 @@ import { API } from "../Config/api";
 
 import { Container, Row, Col, Button } from "react-bootstrap";
 import cssModules from "../css/Cetak.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 
 function Tiket() {
   let navigate = useNavigate();
+  let param = useParams();
+  let id = parseInt(param.id);
+
   let { data: myTicket } = useQuery("myTicketCache", async () => {
     const response = await API.get("/transaction-user");
     return response.data.data;
@@ -42,9 +45,11 @@ function Tiket() {
                   <p className={cssModules.text1}>{data.ticket.name_train}</p>
                   <p className={cssModules.text2}>{data.ticket.type_train}</p>
                   <div className={cssModules.box}>
-                    <div className="alert alert-warning d-inline-block">
-                      <p className={cssModules.pending}>{data.status}</p>
-                    </div>
+                    {data.status === "success" ? (
+                      <div className="alert alert-success d-inline-block">{data.status === "success" && <p className={cssModules.pending}>{data.status}</p>}</div>
+                    ) : (
+                      <div className="alert alert-warning d-inline-block">{data.status === "pending" && <p className={cssModules.pending}>{data.status}</p>}</div>
+                    )}
                   </div>
                   <p className={cssModules.heading}>No. Tanda Pengenal</p>
                 </Col>
@@ -105,9 +110,12 @@ function Tiket() {
                   </div>
                 </Col>
                 <Col s={2}>
-                  <Button className={cssModules.btn} onClick={() => handleBuy(data.id)}>
-                    Bayar Sekarang
-                  </Button>
+                  {data.status === "pending" && (
+                    <Button className={cssModules.btn} onClick={() => handleBuy(data.id)}>
+                      Bayar Sekarang
+                    </Button>
+                  )}
+                  {data.status === "success"}
                 </Col>
               </Row>
             </div>
