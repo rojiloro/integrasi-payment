@@ -1,7 +1,7 @@
 import { Button, Container } from "react-bootstrap";
-import Footer from "../Components/Footer";
+import Footer from "../components/Footer";
 import { useMutation, useQuery } from "react-query";
-import { API } from "../Config/api";
+import { API } from "../config/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 

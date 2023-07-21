@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "react-bootstrap/Image";
-import { API } from "../Config/api";
+import { API } from "../config/api";
 
 import { Container, Row, Col, Button } from "react-bootstrap";
 import cssModules from "../css/Cetak.module.css";
